@@ -1,10 +1,18 @@
 /*
 Go server apirest simulation  A.Villanueva
-curl http://localhost:8080/api/v1/gateways
+
+Modeles
 curl -X GET -H "Content-Type: application/json" -H "APIKey: cd66a4f9-8a9b-4a8c-a02a-ff2d7d1c3e3c" <URL>
 curl -X GET -H "Content-Type: application/json" -H "APIKey: ef3a5fb2-8d89-4f07-ae6c-9b2692ef9f5f" <URL>
 
+
+OK get gateways with APIKey
 curl -X GET -H "Content-Type: application/json" -H "APIKey: cd66a4f9-8a9b-4a8c-a02a-ff2d7d1c3e3c" 127.0.0.1:8080/api/v1/gateways
+
+
+Erreur no APIKey
+curl -X GET -H "Content-Type: application/json"  127.0.0.1:8080/api/v1/gateways
+curl http://localhost:8080/api/v1/gateways
 */
 
 package main
@@ -73,9 +81,10 @@ var gateways = Data{
 func getGateways(c *gin.Context) {
 	if testHeader(c) {
 		c.IndentedJSON(http.StatusOK, gateways)
+	} else {
+		// Erreur json message
+		c.AbortWithStatusJSON(http.StatusInternalServerError, ErrorResponse{"\n Internal Server Error \n"})
 	}
-	// Erreur json message
-	c.AbortWithStatusJSON(http.StatusInternalServerError, ErrorResponse{"Internal Server Error"})
 }
 
 func testHeader(c *gin.Context) bool {
