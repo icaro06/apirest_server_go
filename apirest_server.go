@@ -81,7 +81,7 @@ func getGateways(c *gin.Context) {
 func testHeader(c *gin.Context) bool {
 	//Vérifier la clé API
 	apiKey := c.GetHeader("APIKey")
-	if apiKey != "c6aa27d6-fc9b-4223-8665-1de556cd7a09" && apiKey != "b4e77488-5330-2a27-2d07-4ce64d0af88d" {
+	if apiKey != "cd66a4f9-8a9b-4a8c-a02a-ff2d7d1c3e3c" && apiKey != "ef3a5fb2-8d89-4f07-ae6c-9b2692ef9f5f" {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 		return false
 	}
